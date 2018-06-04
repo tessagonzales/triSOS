@@ -1,13 +1,12 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, TouchableOpacity, Text, Alert } from 'react-native';
 import { Button } from 'react-native-elements';
 import { Actions } from 'react-native-router-flux';
-
-
 
 const Main = () => {
 
     const { buttonStyle } = styles;
+
 
     return (
         <View>
@@ -37,7 +36,7 @@ const Main = () => {
                 borderRadius={10}
                 large={true}
                 buttonStyle={buttonStyle}
-                onPress={() => {
+                onLongPress={() => {
                     console.log('Button Clicked')
                 }}
             />
