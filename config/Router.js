@@ -9,6 +9,7 @@ import Center from '../src/screens/header/Center';
 import LoginForm from '../src/screens/LoginForm';
 import DrawerContent from '../src/screens/header/DrawerContent';
 import AccountSettings from '../src/screens/AccountSettings'
+import CurLocation from '../src/screens/CurLocation';
 
 const RouterComponent = () => {
 
@@ -100,6 +101,7 @@ const RouterComponent = () => {
                     <Scene
                         back={true}
                         key='contacts' 
+                        renderTitle={Center}
                         component={ContactsList} 
                         title="Contacts"
                         navigationBarStyle={{ backgroundColor: '#3D6DCC' }}
@@ -111,6 +113,7 @@ const RouterComponent = () => {
                         back={true}
                         key='about' 
                         component={About} 
+                        renderTitle={Center}
                         title="About"
                         navigationBarStyle={{ backgroundColor: '#3D6DCC' }}
                         initial
@@ -133,6 +136,14 @@ const RouterComponent = () => {
                     key='update'
                     component={AccountSettings}
                     title="Account Settings"
+                    navigationBarStyle={{ backgroundColor: '#3D6DCC' }}
+                />
+
+                <Scene
+                    back={true}
+                    key='location'
+                    component={CurLocation}
+                    title="Current Location"
                     navigationBarStyle={{ backgroundColor: '#3D6DCC' }}
                 />
 

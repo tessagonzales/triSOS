@@ -10,12 +10,21 @@ const DrawerContent = () => {
             <Text h4 style={headerStyle}>Settings</Text>
             <Text style={subHeadStyle}>User</Text>
             <Text style={{alignSelf:'center'}}>____________________________</Text>
+            
             <Text 
                 style={linkStyle}
                 onPress={Actions.update}
             >
                 Account Settings
             </Text>
+
+            <Text
+                style={linkStyle}
+                onPress={Actions.location}
+            >
+                View Current Location
+            </Text>
+
         <Text 
             style={logoutStyle}
             onPress={Actions.login}

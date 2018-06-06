@@ -135,9 +135,7 @@ class LoginForm extends Component {
                         onPress={ () => {
                             this.handlePress()
                             Actions.refresh({key: Math.random()})
-                        }}
-
-                        
+                        }}                        
                     />
 
             </Overlay>

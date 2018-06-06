@@ -1,5 +1,12 @@
 {
   "expo": {
     "sdkVersion": "27.0.0"
+  },
+  "ios": {
+    "infoPlist": {
+      "NSLocationWhenInUseUsageDescription": "This app uses location services to locate your current location.",
+      "NSLocationAlwaysUsageDescription": "stuff"
+    }
   }
 }
+
