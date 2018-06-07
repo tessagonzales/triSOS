@@ -4,8 +4,8 @@ import MapView from 'react-native-maps';
 import { Location, Permissions } from 'expo'
 
 const deltas = {
-    latitudeDelta: 0.0922,
-    longitudeDelta: 0.0421
+    latitudeDelta: 9,
+    longitudeDelta: 9
 };
 
 class CurLocation extends Component {

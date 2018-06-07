@@ -1,20 +1,45 @@
 import React, { Component } from 'react';
 import { View, Text, Alert } from 'react-native';
-import { Button, Icon } from 'react-native-elements';
+import { Button, Icon, FormInput, FormLabel } from 'react-native-elements';
 
 class AccountSettings extends Component {
     render() {
 
-        const { container } = styles;
+        const { container, inputStyle } = styles;
 
         return (
             <View style={container}>
                 <Text>Update User Info</Text>
+
+                <FormLabel>First Name</FormLabel>
+                <FormInput inputStyle={inputStyle}></FormInput>
+
+                <FormLabel>Last Name</FormLabel>
+                <FormInput inputStyle={inputStyle}></FormInput>
+
+                <FormLabel>Phone Number</FormLabel>
+                <FormInput inputStyle={inputStyle}></FormInput>
+
+                <FormLabel>Password</FormLabel>
+                <FormInput inputStyle={inputStyle}></FormInput>
+
+                <Button
+                    title='Update'
+                    buttonStyle={{
+                        backgroundColor: 'purple',
+                        width: 300,
+                        marginTop: 20,
+                        marginBottom: 20
+                    }}
+                    onPress={() => {
+                        console.log('heard')
+                    }}
+                />
                 
                 <Button
                     icon={{ name: 'warning', color: '#FFF'}}
                     title="Delete Account"
-                    buttonStyle={{ backgroundColor:'#bf0a00', width:300 }}
+                    buttonStyle={{ backgroundColor:'#bf0a00', width: 200, marginTop: 50 }}
                     onPress={() => {
                         Alert.alert(
                             'Confirm Deletion',
@@ -35,10 +60,13 @@ class AccountSettings extends Component {
 const styles = {
     container: {
         flex: 1,
-        backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
     },
+    inputStyle: {
+        width: 300,
+        alignContent: 'center'
+    }
 }
 
 export default AccountSettings;

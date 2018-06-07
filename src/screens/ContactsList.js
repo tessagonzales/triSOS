@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, RefreshControl } from 'react-native';
 import axios from 'axios';
 import Contact from './Contact'
 import { Text, Icon, FormInput, FormLabel, Button } from 'react-native-elements'
@@ -11,6 +11,7 @@ class ContactsList extends Component {
     state = {
         contacts: [],
         modalVisible: false,
+        refreshing: false,
     }
 
     componentWillMount() {
@@ -19,6 +20,19 @@ class ContactsList extends Component {
                 contacts: res.data
             }))
     };
+
+    _onRefresh() {
+        this.setState({ refreshing: true });
+        
+        axios.get('http://localhost:8000/api/favs')
+            .then(res => this.setState({
+                contacts: res.data
+            }))
+        
+        .then(() => {
+            this.setState({ refreshing: false });
+        });
+    }
 
     showOverlay = () => {
         this.setState({
@@ -44,14 +58,26 @@ class ContactsList extends Component {
             })
     };
 
+
     render() {
         const { iconTextStyle, inputStyle } = styles;
         const allContacts = this.state.contacts.map(contact => <Contact key={contact.id} contact={contact} /> )
 
         return (
-            <ScrollView>
+            <ScrollView
+            
+                refreshControl={
+                    <RefreshControl
+                        refreshing={this.state.refreshing}
+                        onRefresh={this._onRefresh.bind(this)}
+                    />
+                }
+            
+            >
 
-                <Text h4 style={iconTextStyle} onPress={this.showOverlay.bind(this)}>
+                <Text style={{ alignSelf: 'center', fontSize: 10, flex: .2 }}>pull down to refresh page </Text>
+
+                <Text h4 style={iconTextStyle} onPress={() => this.showOverlay()}>
                     <Icon
                         name='add-circle'
                         color='#3D6DCC'
@@ -64,12 +90,15 @@ class ContactsList extends Component {
                 <Text>{allContacts}</Text>
 
 
+
+
+                {/* ------------------- OVERLAY ------------------- */}
                 <Overlay visible={this.state.modalVisible}
                     closeOnTouchOutside
                     animationType="fadeIn"
                     containerStyle={{ backgroundColor: 'rgba(0, 8, 10, 0.9)' }}
                     childrenWrapperStyle={{ backgroundColor: '#eee', borderWidth: 1, borderColor: 'blue' }}
-                    onClose={this.hideOverlay}
+                    onClose={() => this.hideOverlay()}
                 >
                     <FormLabel labelStyle={{ marginTop: 35 }}>Name</FormLabel>
                     <FormInput
@@ -78,16 +107,18 @@ class ContactsList extends Component {
                         onChangeText={ name => this.setState({ name }) }
                     />
 
-                    <FormLabel labelStyle={{ marginTop: 35 }}>Phone Number (include area code)</FormLabel>
+                    <FormLabel labelStyle={{ marginTop: 35 }}>Phone Number</FormLabel>
+                    <Text style={{ fontSize: 11 }}>(include area code, no symbols)</Text>
                     <FormInput
                         inputStyle={inputStyle}
                         keyboardType="numeric"
+                        defaultValue="+1"
                         value={this.state.phone_num}
                         onChangeText={phone_num => this.setState({ phone_num })}
                     />
 
                     <Button
-                        title='Sign Up'
+                        title='Add Contact'
                         buttonStyle={{
                             backgroundColor: 'purple',
                             width: 300,

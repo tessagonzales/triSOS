@@ -11,7 +11,7 @@ class LoginForm extends Component {
         users: [],
         f_name: '',
         l_name: '',
-        phone_num: '',
+        phone_num: '+1',
         pw: '',
         modalVisible: false
     };
@@ -76,7 +76,8 @@ class LoginForm extends Component {
 
 
                 <Text style={textStyle}
-                    onPress={this.showOverlay.bind(this)}
+                    onPress={() => {
+                        this.showOverlay()}}
                 >Not a user? Sign-up!</Text>
 
 
@@ -84,7 +85,7 @@ class LoginForm extends Component {
 
             <Overlay visible={this.state.modalVisible}
                 closeOnTouchOutside 
-                animationType="fadeIn"
+                animationType="bounceIn"
                 containerStyle={{ backgroundColor: 'rgba(0, 8, 10, 0.9)' }}
                 childrenWrapperStyle={{ backgroundColor: '#eee', borderWidth:1, borderColor:'blue'}}
                 onClose={this.hideOverlay}
@@ -104,11 +105,12 @@ class LoginForm extends Component {
                 />
 
                 <FormLabel labelStyle={{ marginTop: 35 }}>Phone Number</FormLabel>
+                    <Text style={{fontSize:11}}>(include area code, no symbols)</Text>
                 <FormInput
                     inputStyle={inputStyle}
                     keyboardType = "numeric"
                     value={this.state.phone_num}
-                    onChangeText={phone_num => this.setState({ phone_num })}
+                    onChangeText={phone_num => this.setState({  phone_num })}
                 />
 
                 <FormLabel labelStyle={{ marginTop: 35 }}>Password</FormLabel>

@@ -12,7 +12,12 @@ const DrawerContent = () => {
             <Text style={{alignSelf:'center'}}>____________________________</Text>
             
             <Text 
-                style={linkStyle}
+                style={{
+                    alignSelf: 'flex-end',
+                    paddingRight: 20,
+                    paddingTop: 20,
+                    color: '#9fabb7'
+                }}
                 onPress={Actions.update}
             >
                 Account Settings

@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
-import { Text, Icon } from 'react-native-elements';
+import { Text, Icon, FormInput, FormLabel, Button } from 'react-native-elements';
 import axios from 'axios';
 import Overlay from 'react-native-modal-overlay';
+import { Actions } from 'react-native-router-flux';
 
 class Contact extends Component {
 
     state = {
-        modalVisible: false
+        modalVisible: false,
+        name: this.props.contact.name || '',
+        phone_num: this.props.contact.phone_num || ''
     }
 
     showOverlay = () => {
@@ -22,21 +25,49 @@ class Contact extends Component {
         })
     };
 
+    onEditPress = (id) => {
+        const updatedContact = {
+            name: this.state.name,
+            phone_num: this.state.phone_num,
+        }
+
+        axios.put(`http://localhost:8000/api/favs/${id}`, { updatedContact })
+            .then(res => {
+                console.log('updated \n', res.data)
+            })
+    }
+
+    onDelete = (id) => {
+        axios.delete(`http://localhost:8000/api/favs/${id}`)
+            .then(res => {
+                console.log('deleted \n', res.data)
+            })
+    }
+
     render() {
 
-        const { listStyle, container } = styles;
+        const { listStyle, container, inputStyle } = styles;
         const contact = this.props.contact
 
         return (
             <View style={container}>
-                <Text style={listStyle} onPress={this.showOverlay.bind(this)}>
+                <Text style={listStyle} onPress={() => this.showOverlay()}>
                     <Icon
                         name="edit"
                         color='#3D6DCC'
                         size={35}
                         iconStyle={{ marginRight: 30 }}
                     />
-                    {contact.name} +{contact.phone_num}
+                    {contact.name} 
+                    
+                    <Icon
+                        name="arrow-forward"
+                        color='#3D6DCC'
+                        size={20}
+                        iconStyle={{ marginLeft: 10, marginRight: 15 }}
+                    />
+
+                    {contact.phone_num}
                 </Text>
 
                 <Overlay visible={this.state.modalVisible}
@@ -46,11 +77,43 @@ class Contact extends Component {
                     childrenWrapperStyle={{ backgroundColor: '#eee', borderWidth: 1, borderColor: 'blue' }}
                     onClose={this.hideOverlay}
                 >
+                    <FormLabel>Name</FormLabel>
+                    <FormInput
+                        defaultValue={contact.name}
+                        inputStyle={inputStyle}
+                        onChangeText={name => this.setState({ name })}
+                    />
+
+                    <FormLabel>Phone Number</FormLabel>
+                    <FormInput
+                        defaultValue={contact.phone_num}
+                        inputStyle={inputStyle}
+                        keyboardType="numeric"
+                        onChangeText={phone_num => this.setState({ phone_num })}
+                    />
+                    <Button
+                        title='Update'
+                        buttonStyle={{
+                            backgroundColor: 'purple',
+                            width: 300,
+                            marginTop: 20,
+                            marginBottom: 20
+                        }}
+                        onPress={() => {
+                            this.onEditPress(contact.id)
+                            Actions.reset('contacts')
+                        }}
+                    />
+
                     <Icon
                         name="delete-forever"
                         color='red'
                         size={50}
-                        onPress={() => console.log('heard')}
+                        onPress={() => {
+                            this.onDelete(contact.id)
+                            Actions.refresh({ key: Math.random() })
+                        }}
+                        
                     />
                 </Overlay>
 
@@ -61,7 +124,7 @@ class Contact extends Component {
 
 const styles = {
     listStyle: {
-        fontSize:20,
+        fontSize:15,
         marginLeft: 25,
         marginBottom: 10,
     },
@@ -69,6 +132,10 @@ const styles = {
         borderBottomColor: 'lightgrey',
         borderBottomWidth: 1,
         width: 350
+    },
+    inputStyle: {
+        width: 300,
+        alignContent: 'center'
     }
 }
 
