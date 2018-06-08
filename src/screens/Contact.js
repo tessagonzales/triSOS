@@ -54,7 +54,7 @@ class Contact extends Component {
                 <Text style={listStyle} onPress={() => this.showOverlay()}>
                     <Icon
                         name="edit"
-                        color='#3D6DCC'
+                        color='#FFF'
                         size={35}
                         iconStyle={{ marginRight: 30 }}
                     />
@@ -62,7 +62,7 @@ class Contact extends Component {
                     
                     <Icon
                         name="arrow-forward"
-                        color='#3D6DCC'
+                        color='#FFF'
                         size={20}
                         iconStyle={{ marginLeft: 10, marginRight: 15 }}
                     />
@@ -70,16 +70,18 @@ class Contact extends Component {
                     {contact.phone_num}
                 </Text>
 
+
                 <Overlay visible={this.state.modalVisible}
                     closeOnTouchOutside
                     animationType="fadeIn"
                     containerStyle={{ backgroundColor: 'rgba(0, 8, 10, 0.9)' }}
-                    childrenWrapperStyle={{ backgroundColor: '#eee', borderWidth: 1, borderColor: 'blue' }}
+                    childrenWrapperStyle={{ backgroundColor: '#3b444c', borderWidth: 1, borderColor: '#56D5FA' }}
                     onClose={this.hideOverlay}
                 >
                     <FormLabel>Name</FormLabel>
                     <FormInput
                         defaultValue={contact.name}
+                        placeholderTextColor="#778899"
                         inputStyle={inputStyle}
                         onChangeText={name => this.setState({ name })}
                     />
@@ -93,15 +95,16 @@ class Contact extends Component {
                     />
                     <Button
                         title='Update'
+                        color="#000"
                         buttonStyle={{
-                            backgroundColor: 'purple',
+                            backgroundColor: '#56D5FA',
                             width: 300,
                             marginTop: 20,
                             marginBottom: 20
                         }}
                         onPress={() => {
                             this.onEditPress(contact.id)
-                            Actions.reset('contacts')
+                            Actions.refresh({ key: Math.random() })
                         }}
                     />
 
@@ -124,14 +127,17 @@ class Contact extends Component {
 
 const styles = {
     listStyle: {
-        fontSize:15,
+        fontSize:14,
         marginLeft: 25,
         marginBottom: 10,
+        color: '#56D5FA',
+        fontWeight: 'bold'
     },
     container: {
         borderBottomColor: 'lightgrey',
         borderBottomWidth: 1,
-        width: 350
+        width: 350,
+        backgroundColor: '#3b444c'
     },
     inputStyle: {
         width: 300,

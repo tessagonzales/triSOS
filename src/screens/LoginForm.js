@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
-import { FormLabel, FormInput, Text, Button } from 'react-native-elements';
+import { FormLabel, FormInput, Text, Button, Icon } from 'react-native-elements';
 import { Actions } from 'react-native-router-flux';
 import Overlay from 'react-native-modal-overlay';
 import axios from 'axios';
@@ -55,11 +55,20 @@ class LoginForm extends Component {
         const { textStyle, inputStyle } = styles;
 
         return (
-            <View style={{flex:1, justifyContent: 'center'}}>
-            <Text h1>Login</Text>
+            <View style={{ flex: 1, justifyContent: 'center', backgroundColor: '#3b444c'}}>
+
+
+                <Icon
+                    name="vpn-key"
+                    color="#FFF"
+                    size={120}
+                />
+
+                <Text h1 style={{ color: '#56D5FA'}}>Login</Text>
             <FormLabel>Phone Number</FormLabel>
             <FormInput 
-                placeholder="555555555"
+                placeholder="+1555555555"
+                placeholderTextColor="#778899"
                 keyboardType="numeric"
             />
             
@@ -70,8 +79,9 @@ class LoginForm extends Component {
 
                 <Button
                     title="Login"
-                    buttonStyle={{marginTop:15, backgroundColor:'purple'}}
+                    buttonStyle={{ marginTop: 15, backgroundColor:'#56D5FA'}}
                     onPress={Actions.Home}
+                    color='#000'
                 />
 
 
@@ -87,7 +97,7 @@ class LoginForm extends Component {
                 closeOnTouchOutside 
                 animationType="bounceIn"
                 containerStyle={{ backgroundColor: 'rgba(0, 8, 10, 0.9)' }}
-                childrenWrapperStyle={{ backgroundColor: '#eee', borderWidth:1, borderColor:'blue'}}
+                    childrenWrapperStyle={{ backgroundColor: '#3b444c', borderWidth: 1, borderColor:'#56D5FA'}}
                 onClose={this.hideOverlay}
             >
                 <FormLabel>First Name</FormLabel>
@@ -105,12 +115,13 @@ class LoginForm extends Component {
                 />
 
                 <FormLabel labelStyle={{ marginTop: 35 }}>Phone Number</FormLabel>
-                    <Text style={{fontSize:11}}>(include area code, no symbols)</Text>
+                    <Text style={{ fontSize: 11, color: '#56D5FA'}}>(include area code, no symbols)</Text>
                 <FormInput
                     inputStyle={inputStyle}
                     keyboardType = "numeric"
                     value={this.state.phone_num}
                     onChangeText={phone_num => this.setState({  phone_num })}
+                    placeholderTextColor="#778899"
                 />
 
                 <FormLabel labelStyle={{ marginTop: 35 }}>Password</FormLabel>
@@ -129,8 +140,9 @@ class LoginForm extends Component {
 
                     <Button
                         title='Sign Up'
+                        color='#000'
                         buttonStyle={{
-                            backgroundColor:'purple',
+                            backgroundColor:'#5bcfef',
                             width: 300,
                             marginTop: 20
                         }}
@@ -153,7 +165,7 @@ const styles = {
         fontSize: 12, 
         marginTop: 15, 
         alignSelf: 'center',
-        color: '#3D6DCC',
+        color: '#56D5FA',
     },
     inputStyle: {
         width: 300,

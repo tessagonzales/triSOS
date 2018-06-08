@@ -9,7 +9,7 @@ class AccountSettings extends Component {
 
         return (
             <View style={container}>
-                <Text>Update User Info</Text>
+                <Text style={{ color: '#56D5FA' }}>Update User Info</Text>
 
                 <FormLabel>First Name</FormLabel>
                 <FormInput inputStyle={inputStyle}></FormInput>
@@ -25,8 +25,9 @@ class AccountSettings extends Component {
 
                 <Button
                     title='Update'
+                    color="#000"
                     buttonStyle={{
-                        backgroundColor: 'purple',
+                        backgroundColor: '#56D5FA',
                         width: 300,
                         marginTop: 20,
                         marginBottom: 20
@@ -62,6 +63,7 @@ const styles = {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: '#3b444c'
     },
     inputStyle: {
         width: 300,

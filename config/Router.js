@@ -18,7 +18,7 @@ const RouterComponent = () => {
             <View>
                 <Icon
                     name="contacts"
-                    color="#3D6DCC"
+                    color="#FFF"
                 />
             </View>
         );
@@ -29,7 +29,7 @@ const RouterComponent = () => {
             <View>
                 <Icon
                     name="help"
-                    color="#3D6DCC"
+                    color="#FFF"
                 />
             </View>
         );
@@ -40,7 +40,7 @@ const RouterComponent = () => {
             <View>
                 <Icon
                     name="home"
-                    color="#3D6DCC"
+                    color="#FFF"
                 />
             </View>
         );
@@ -54,7 +54,7 @@ const RouterComponent = () => {
                     key="login"
                     title="Login"
                     component={LoginForm}
-                    navigationBarStyle={{ backgroundColor: '#3D6DCC' }}
+                    navigationBarStyle={{ backgroundColor: '#23282d' }}
                     hideTabBar={true}
                     swipeEnabled={false}
                     renderTitle={Center}
@@ -67,8 +67,8 @@ const RouterComponent = () => {
                 <Scene key="tabbar"
                     tabs
                     swipeEnabled={true}
-                    tabBarStyle={{backgroundColor: '#FFF'}}
-                    activeTintColor="#000"
+                    tabBarStyle={{ backgroundColor: '#23282d'}}
+                    activeTintColor="#56D5FA"
                     hideNavBar={true}
                 >
 
@@ -89,7 +89,7 @@ const RouterComponent = () => {
                         key='Home' 
                         component={Main} 
                         renderTitle={Center}
-                        navigationBarStyle={{ backgroundColor:'#3D6DCC'}}
+                        navigationBarStyle={{ backgroundColor:'#23282d'}}
                         initial
                     />
                 </Scene>
@@ -104,7 +104,7 @@ const RouterComponent = () => {
                         renderTitle={Center}
                         component={ContactsList} 
                         title="Contacts"
-                        navigationBarStyle={{ backgroundColor: '#3D6DCC' }}
+                        navigationBarStyle={{ backgroundColor: '#23282d' }}
                         initial />
                     </Scene>
 
@@ -115,7 +115,7 @@ const RouterComponent = () => {
                         component={About} 
                         renderTitle={Center}
                         title="About"
-                        navigationBarStyle={{ backgroundColor: '#3D6DCC' }}
+                        navigationBarStyle={{ backgroundColor: '#23282d' }}
                         initial
                     />
                 </Scene>
@@ -127,7 +127,7 @@ const RouterComponent = () => {
                     key="login" 
                     title="Login" 
                     component={LoginForm}
-                    navigationBarStyle={{ backgroundColor: '#3D6DCC' }} 
+                    navigationBarStyle={{ backgroundColor: '#23282d' }} 
                     back={false}
                 />
 
@@ -136,7 +136,8 @@ const RouterComponent = () => {
                     key='update'
                     component={AccountSettings}
                     title="Account Settings"
-                    navigationBarStyle={{ backgroundColor: '#3D6DCC' }}
+                    renderTitle={Center}
+                    navigationBarStyle={{ backgroundColor: '#23282d' }}
                 />
 
                 <Scene
@@ -144,7 +145,8 @@ const RouterComponent = () => {
                     key='location'
                     component={CurLocation}
                     title="Current Location"
-                    navigationBarStyle={{ backgroundColor: '#3D6DCC' }}
+                    renderTitle={Center}
+                    navigationBarStyle={{ backgroundColor: '#23282d' }}
                 />
 
             </Scene>

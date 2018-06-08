@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, RefreshControl } from 'react-native';
+import { ScrollView, RefreshControl, View } from 'react-native';
 import axios from 'axios';
 import Contact from './Contact'
 import { Text, Icon, FormInput, FormLabel, Button } from 'react-native-elements'
@@ -65,7 +65,7 @@ class ContactsList extends Component {
 
         return (
             <ScrollView
-            
+                contentContainerStyle={{ backgroundColor:'#3b444c'}}
                 refreshControl={
                     <RefreshControl
                         refreshing={this.state.refreshing}
@@ -75,19 +75,21 @@ class ContactsList extends Component {
             
             >
 
-                <Text style={{ alignSelf: 'center', fontSize: 10, flex: .2 }}>pull down to refresh page </Text>
+                <Text style={{ alignSelf: 'center', fontSize: 10, flex: .2, color:'#56D5FA' }}>pull down to refresh page </Text>
 
                 <Text h4 style={iconTextStyle} onPress={() => this.showOverlay()}>
                     <Icon
                         name='add-circle'
-                        color='#3D6DCC'
+                        color='#FFF'
                         size={35}
                     />               
                     Add Contact
                 </Text>
 
 
-                <Text>{allContacts}</Text>
+                <View>{allContacts}</View>
+
+                <Text style={{ color:'#3b444c',marginBottom:500}}>-</Text>
 
 
 
@@ -97,7 +99,7 @@ class ContactsList extends Component {
                     closeOnTouchOutside
                     animationType="fadeIn"
                     containerStyle={{ backgroundColor: 'rgba(0, 8, 10, 0.9)' }}
-                    childrenWrapperStyle={{ backgroundColor: '#eee', borderWidth: 1, borderColor: 'blue' }}
+                    childrenWrapperStyle={{ backgroundColor: '#3b444c', borderWidth: 1, borderColor: '#56D5FA' }}
                     onClose={() => this.hideOverlay()}
                 >
                     <FormLabel labelStyle={{ marginTop: 35 }}>Name</FormLabel>
@@ -119,8 +121,9 @@ class ContactsList extends Component {
 
                     <Button
                         title='Add Contact'
+                        color="#000"
                         buttonStyle={{
-                            backgroundColor: 'purple',
+                            backgroundColor: '#56D5FA',
                             width: 300,
                             marginTop: 20
                         }}
@@ -143,6 +146,7 @@ const styles = {
         marginTop: 20,
         alignSelf: 'center',
         fontWeight: 'bold',
+        color: '#56D5FA'
     },
     inputStyle: {
         width: 300,

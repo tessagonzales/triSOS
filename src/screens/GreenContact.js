@@ -69,6 +69,7 @@ const styles = {
     listStyle: {
         fontSize: 20,
         padding: 10,
+        color: '#56D5FA'
     }
 }
 

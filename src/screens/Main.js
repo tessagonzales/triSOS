@@ -8,6 +8,7 @@ import Overlay from 'react-native-modal-overlay';
 import GreenContact from './GreenContact';
 import YellowContact from './YellowContact';
 
+
 class Main extends Component {
 
     constructor(props) {
@@ -21,7 +22,8 @@ class Main extends Component {
             greenModal:false,
             yellowModal:false,
             disabled: true,
-            favs: []
+            favs: [],
+            bingLocation: []
         };
     }
 
@@ -41,6 +43,11 @@ class Main extends Component {
             .then(res => this.setState({
                 favs: res.data
             }))
+
+        // axios.get(`http://dev.virtualearth.net/REST/v1/Locations/${this.state.region.latitude},${this.state.region.longitude}key=AnssadiJjNvl1hLmxhD5hcmdZ4YHgfrjLUowqUVufZXDfF4Uif7B8pSZx1PVZbdI`)
+        //     .then(res => this.setState({
+        //         bingLocation: res.data
+        //     }))
     }
 
     getLocationAsync = async () => {
@@ -103,17 +110,19 @@ class Main extends Component {
 
     render() {
         const { buttonStyle } = styles;
-        
+
+        console.log('bing maps =====> \n', this.state.bingLocation)
+
         let greenContacts = this.state.favs.map(contact => <GreenContact key={contact.id} contact={contact} />)
         let yellowContacts = this.state.favs.map(contact => <YellowContact key={contact.id} contact={contact} />)
 
         return (
-            <ScrollView>
+            <ScrollView contentContainerStyle={{ backgroundColor: '#3b444c' }}>
 
                 {/* MAIN BUTTONS */}
                 <Button
-                    title='BUTTON'
-                    backgroundColor='#06ab03'
+                    title="Casual"
+                    backgroundColor='#004c00'
                     borderRadius={10}
                     large={true}
                     buttonStyle={buttonStyle}
@@ -123,8 +132,8 @@ class Main extends Component {
                 />
 
                 <Button
-                    title='BUTTON'
-                    backgroundColor='#ffcc14'
+                        title="Mild Warning"
+                    backgroundColor='#e8ba00'
                     borderRadius={10}
                     large={true}
                     buttonStyle={buttonStyle}
@@ -134,7 +143,7 @@ class Main extends Component {
                 />
 
                 <Button
-                    title='BUTTON'
+                        title="Immediate"
                     backgroundColor='#ff8400'
                     borderRadius={10}
                     large={true}
@@ -146,10 +155,10 @@ class Main extends Component {
                 />
 
                 <Text 
-                    style={{ alignSelf: 'center', fontSize: 10, marginTop: 130}}>Undisable buttons if you have read our ABOUT page already</Text>
+                    style={{ alignSelf: 'center', fontSize: 10, marginTop: 120, marginBottom:10, color:'#56D5FA'}}>Undisable buttons if you have read our ABOUT page already</Text>
                 <Switch
-                    style={{alignSelf:'center'}}
-                    tintColor='limegreen'
+                    style={{alignSelf:'center', marginBottom: 20}}
+                    tintColor='#56D5FA'
                     onTintColor='lightgrey'
                     onValueChange={() => this.handleSwitch()}
                     value={this.state.disabled}
@@ -161,11 +170,11 @@ class Main extends Component {
                 <Overlay visible={this.state.greenModal}
                     closeOnTouchOutside
                     animationType="fadeInUp"
-                    containerStyle={{ backgroundColor: 'rgba(255, 255, 255, 0.8)' }}
-                    childrenWrapperStyle={{ backgroundColor: '#eee', borderWidth: 1, borderColor: 'blue' }}
+                    containerStyle={{ backgroundColor: 'rgba(0, 8, 10, 0.9)' }}
+                    childrenWrapperStyle={{ backgroundColor: '#3b444c', borderWidth: 1, borderColor: '#56D5FA' }}
                     onClose={this.hideGreenOverlay}
                 >
-                    <Text h4 style={{marginBottom:20}}>Send Location To</Text>
+                    <Text h4 style={{ marginBottom: 20, color: '#56D5FA'}}>Send Location To</Text>
                     <ScrollView>{greenContacts}</ScrollView>
                 </Overlay>
 
@@ -174,11 +183,11 @@ class Main extends Component {
                 <Overlay visible={this.state.yellowModal}
                     closeOnTouchOutside
                     animationType="fadeInUp"
-                    containerStyle={{ backgroundColor: 'rgba(255, 255, 255, 0.8)' }}
-                    childrenWrapperStyle={{ backgroundColor: '#eee', borderWidth: 1, borderColor: 'blue' }}
+                    containerStyle={{ backgroundColor: 'rgba(0, 8, 10, 0.9)' }}
+                    childrenWrapperStyle={{ backgroundColor: '#3b444c', borderWidth: 1, borderColor: '#56D5FA' }}
                     onClose={this.hideYellowOverlay}
                 > 
-                    <Text h4 style={{ marginBottom: 20 }}>Send Location To</Text>
+                    <Text h4 style={{ marginBottom: 20, color: '#56D5FA' }}>Send Location To</Text>
                     <ScrollView>{yellowContacts}</ScrollView>
                 </Overlay>
 

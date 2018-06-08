@@ -6,17 +6,17 @@ import { Actions } from 'react-native-router-flux';
 const DrawerContent = () => {
     const { headerStyle, subHeadStyle, linkStyle, logoutStyle } = styles;
     return (
-        <View>
+        <View style={{ backgroundColor:'#23282d'}}>
             <Text h4 style={headerStyle}>Settings</Text>
             <Text style={subHeadStyle}>User</Text>
-            <Text style={{alignSelf:'center'}}>____________________________</Text>
+            <Text style={{ alignSelf: 'center', color: '#9fabb7' }}>____________________________</Text>
             
             <Text 
                 style={{
                     alignSelf: 'flex-end',
                     paddingRight: 20,
                     paddingTop: 20,
-                    color: '#9fabb7'
+                    color: '#56D5FA'
                 }}
                 onPress={Actions.update}
             >
@@ -42,10 +42,11 @@ const DrawerContent = () => {
 
 const styles = {
     headerStyle: {
-        backgroundColor: '#3D6DCC', 
+        backgroundColor: '#23282d', 
         paddingTop: 20, paddingBottom: 13, 
         paddingLeft: 10, 
-        color: '#FFF'
+        color: '#56D5FA',
+        fontWeight: 'bold'
     },
     subHeadStyle: {
         alignSelf: 'center', 
@@ -55,18 +56,20 @@ const styles = {
         fontWeight: 'bold',
         borderBottomColor: 'black',
         borderBottomWidth: 1,
+        color: '#FFF'
     },
     linkStyle: {
         alignSelf: 'flex-end', 
         paddingRight: 20, 
         paddingTop: 20, 
-        color: '#3D6DCC'
+        color: '#56D5FA'
     },
     logoutStyle: {
         alignSelf: 'flex-end',
         paddingRight: 20,
         paddingTop: 100,
-        color: '#3D6DCC'
+        color: '#56D5FA',
+        paddingBottom:500
     }
 }
 
