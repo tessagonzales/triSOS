@@ -1,8 +1,17 @@
 import React, { Component } from 'react';
 import { View, Text, Alert } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import { Button, Icon, FormInput, FormLabel } from 'react-native-elements';
 
 class AccountSettings extends Component {
+
+    onDelete = (id) => {
+        axios.delete(`http://localhost:8000/api/users/${id}`)
+            .then(res => {
+                console.log('deleted \n', res.data)
+            })
+    }
+
     render() {
 
         const { container, inputStyle } = styles;
@@ -41,17 +50,7 @@ class AccountSettings extends Component {
                     icon={{ name: 'warning', color: '#FFF'}}
                     title="Delete Account"
                     buttonStyle={{ backgroundColor:'#bf0a00', width: 200, marginTop: 50 }}
-                    onPress={() => {
-                        Alert.alert(
-                            'Confirm Deletion',
-                            'Are You Sure?',
-                            [
-                                { text: 'Cancel', onPress: () => console.log('Cancel Pressed!') },
-                                { text: 'OK', onPress: this.onDeleteBTN },
-                            ],
-                            { cancelable: false }
-                        )
-                    }}
+                    onPress={() => this.onDelete(user.id) }
                 />
             </View>
         );

@@ -32,7 +32,7 @@ class Main extends Component {
     handleSwitch () {
         this.setState({
             disabled: !this.state.disabled
-        })
+        }) 
     }
 
 

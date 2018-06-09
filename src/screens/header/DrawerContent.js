@@ -4,26 +4,28 @@ import { Text } from 'react-native-elements';
 import { Actions } from 'react-native-router-flux';
 
 const DrawerContent = () => {
-    const { headerStyle, subHeadStyle, linkStyle, logoutStyle } = styles;
+    const { headerStyle, subHeadStyle, linkStyle, logoutStyle, logoutNow } = styles;
     return (
         <View style={{ backgroundColor:'#23282d'}}>
             <Text h3 style={headerStyle}>Settings</Text>
             <Text style={{ alignSelf: 'center', color: '#9fabb7' }}>____________________________</Text>
             <Text style={subHeadStyle}>User</Text>
             
+        {/*}
             <Text 
                 style={{
                     alignSelf: 'flex-end',
                     paddingRight: 20,
                     paddingTop: 20,
-                    color: '#56D5FA',
+                    color: '#9fabb7',
                     fontWeight:'bold'
                     
                 }}
-                onPress={Actions.update}
-            >
+                onPress={() => Actions.update}
+            > 
                 ACCOUNT SETTINGS
             </Text>
+            */}
 
             <Text
                 style={linkStyle}
@@ -33,7 +35,7 @@ const DrawerContent = () => {
             </Text>
 
         <Text 
-            style={logoutStyle}
+            style={logoutNow}
             onPress={Actions.login}
         >
             LOGOUT
@@ -67,6 +69,14 @@ const styles = {
         paddingTop: 25, 
         color: '#56D5FA',
         fontWeight: 'bold'
+    },
+    logoutNow: {
+        alignSelf: 'flex-end',
+        paddingRight: 20,
+        paddingTop: 25,
+        color: '#56D5FA',
+        fontWeight: 'bold',
+        paddingBottom: 500,
     },
     logoutStyle: {
         alignSelf: 'flex-end',
