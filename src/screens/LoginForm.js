@@ -17,7 +17,7 @@ class LoginForm extends Component {
     };
 
     componentWillMount() {
-        axios.get('http://localhost:8000/api/users')
+        axios.get('http://localhost:8000/login')
             .then(res => this.setState({
                 users: res.data
             }))
@@ -64,10 +64,10 @@ class LoginForm extends Component {
                     size={120}
                 />
 
-                <Text h1 style={{ color: '#56D5FA'}}>Login</Text>
+                <Text h1 style={{ color: '#56D5FA', fontFamily:'Courier-Bold'}}>Login</Text>
             <FormLabel>Phone Number</FormLabel>
             <FormInput 
-                placeholder="+1555555555"
+                placeholder="+15554440000"
                 placeholderTextColor="#778899"
                 keyboardType="numeric"
             />

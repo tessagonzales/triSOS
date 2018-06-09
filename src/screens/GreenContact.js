@@ -3,6 +3,8 @@ import { View, Text } from 'react-native';
 import { Location, Permissions } from 'expo';
 import axios from 'axios';
 
+let apiKeys = require('../../bing-key.json');
+
 
 class GreenContact extends Component {
 
@@ -36,15 +38,24 @@ class GreenContact extends Component {
             longitude: location.coords.longitude
         };
         await this.setState({ region });
+
+        axios.get(`http://dev.virtualearth.net/REST/v1/Locations/${this.state.region.latitude},${this.state.region.longitude}?&key=${apiKeys["bing-key"]}`)
+            .then(res => {
+                console.log(res.data)
+                this.setState({
+                    bingLocation: res.data
+                })
+            })
     }
 
-    handlePress(id) {
-        const region = {
-            latitude: this.state.region.latitude,
-            longitude: this.state.region.longitude
-        }
 
-        axios.post(`http://localhost:8000/api/message/green/dispatch/${id}`, { region })
+    handlePress(id) {
+        let resourceSets = this.state.bingLocation.resourceSets ? this.state.bingLocation.resourceSets : [];
+        let addressRecieved = resourceSets.map(resource => resource.resources[0].name)[0]
+
+        console.log('plzzzzz WORK \n', addressRecieved)
+
+        axios.post(`http://localhost:8000/api/message/green/dispatch/${id}`, { addressRecieved })
             .then(res => {
                 console.log('res.data =======> \n', res.data)
             })
@@ -60,16 +71,17 @@ class GreenContact extends Component {
                 onPress={() => {
                     this.handlePress(contact.id)
                 }}
-                > {contact.name}</Text>
+                > {contact.name.toUpperCase()}</Text>
         )
     }
 };
 
 const styles = {
     listStyle: {
-        fontSize: 20,
+        fontSize: 15,
         padding: 10,
-        color: '#56D5FA'
+        color: '#56D5FA',
+        fontWeight: 'bold'
     }
 }
 

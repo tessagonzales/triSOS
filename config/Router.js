@@ -58,6 +58,7 @@ const RouterComponent = () => {
                     hideTabBar={true}
                     swipeEnabled={false}
                     renderTitle={Center}
+                    
                     back={false}
                     initial
                 />

@@ -75,7 +75,7 @@ class ContactsList extends Component {
             
             >
 
-                <Text style={{ alignSelf: 'center', fontSize: 10, flex: .2, color:'#56D5FA' }}>pull down to refresh page </Text>
+                <Text style={{ alignSelf: 'center', fontSize: 11, flex: .2, color:'#56D5FA', fontWeight:'bold' }}>pull down to refresh page </Text>
 
                 <Text h4 style={iconTextStyle} onPress={() => this.showOverlay()}>
                     <Icon

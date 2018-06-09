@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { ScrollView, TouchableOpacity, Alert, Switch } from 'react-native';
-import { Button, Text } from 'react-native-elements';
+import { Button, Text, Icon } from 'react-native-elements';
 import { Actions } from 'react-native-router-flux';
 import { Location, Permissions } from 'expo';
 import axios from 'axios';
 import Overlay from 'react-native-modal-overlay';
 import GreenContact from './GreenContact';
 import YellowContact from './YellowContact';
+
+ let apiKeys = require('../../bing-key.json');
 
 
 class Main extends Component {
@@ -43,11 +45,6 @@ class Main extends Component {
             .then(res => this.setState({
                 favs: res.data
             }))
-
-        // axios.get(`http://dev.virtualearth.net/REST/v1/Locations/${this.state.region.latitude},${this.state.region.longitude}key=AnssadiJjNvl1hLmxhD5hcmdZ4YHgfrjLUowqUVufZXDfF4Uif7B8pSZx1PVZbdI`)
-        //     .then(res => this.setState({
-        //         bingLocation: res.data
-        //     }))
     }
 
     getLocationAsync = async () => {
@@ -63,19 +60,22 @@ class Main extends Component {
             longitude: location.coords.longitude
         };
         await this.setState({ region });
+
+        axios.get(`http://dev.virtualearth.net/REST/v1/Locations/${this.state.region.latitude},${this.state.region.longitude}?&key=${apiKeys["bing-key"]}`)
+            .then(res => {
+                console.log(res.data)
+                this.setState({
+                    bingLocation: res.data
+                })
+            })
     }
 
     handleLongPress() {
-        const region = {
-            latitude: this.state.region.latitude,
-            longitude: this.state.region.longitude
-        }
+        let resourceSets = this.state.bingLocation.resourceSets ? this.state.bingLocation.resourceSets : [];
+        let addressRecieved = resourceSets.map(resource => resource.resources[0].name)[0]
 
-        console.log('long press', region)
-
-        axios.post('http://localhost:8000/api/message/dispatch', { region })
-            .then(res => {
-                
+        axios.post('http://localhost:8000/api/message/dispatch', { addressRecieved })
+            .then(res => {               
                 console.log('res.data =======> \n', res.data)
             })
     }
@@ -109,10 +109,7 @@ class Main extends Component {
 
 
     render() {
-        const { buttonStyle } = styles;
-
-        console.log('bing maps =====> \n', this.state.bingLocation)
-
+        const { buttonStyle, selectedModalStyle } = styles;
         let greenContacts = this.state.favs.map(contact => <GreenContact key={contact.id} contact={contact} />)
         let yellowContacts = this.state.favs.map(contact => <YellowContact key={contact.id} contact={contact} />)
 
@@ -155,7 +152,7 @@ class Main extends Component {
                 />
 
                 <Text 
-                    style={{ alignSelf: 'center', fontSize: 10, marginTop: 120, marginBottom:10, color:'#56D5FA'}}>Undisable buttons if you have read our ABOUT page already</Text>
+                    style={{ alignSelf: 'center', fontSize: 12, marginTop: 120, marginBottom:10, color:'#56D5FA', fontWeight:'bold'}}>Undisable buttons if you have read our ABOUT page already</Text>
                 <Switch
                     style={{alignSelf:'center', marginBottom: 20}}
                     tintColor='#56D5FA'
@@ -174,7 +171,16 @@ class Main extends Component {
                     childrenWrapperStyle={{ backgroundColor: '#3b444c', borderWidth: 1, borderColor: '#56D5FA' }}
                     onClose={this.hideGreenOverlay}
                 >
-                    <Text h4 style={{ marginBottom: 20, color: '#56D5FA'}}>Send Location To</Text>
+                    <Text style={selectedModalStyle}>
+                        SEND LOCATION TO
+                        <Icon
+                            name="send"
+                            color="#56D5FA"
+                            size={20}
+                            iconStyle={{ marginLeft: 15 }}
+                        />
+                    </Text>
+                    <Text style={{ color:'#778899'}}>_____________________________________</Text>
                     <ScrollView>{greenContacts}</ScrollView>
                 </Overlay>
 
@@ -187,7 +193,16 @@ class Main extends Component {
                     childrenWrapperStyle={{ backgroundColor: '#3b444c', borderWidth: 1, borderColor: '#56D5FA' }}
                     onClose={this.hideYellowOverlay}
                 > 
-                    <Text h4 style={{ marginBottom: 20, color: '#56D5FA' }}>Send Location To</Text>
+                    <Text style={selectedModalStyle}>
+                        SEND LOCATION TO
+                        <Icon
+                            name="send"
+                            color="#56D5FA"
+                            size={20}
+                            iconStyle={{marginLeft:15}}
+                        />
+                    </Text>
+                    <Text style={{ color: '#778899' }}>_____________________________________</Text>
                     <ScrollView>{yellowContacts}</ScrollView>
                 </Overlay>
 
@@ -203,7 +218,13 @@ const styles = {
         marginTop: 20,
         paddingTop: 30,
         paddingBottom: 30
-    }
+    },
+    selectedModalStyle: {
+        marginBottom: 5,
+        color: '#EEE',
+        fontWeight: 'bold',
+        fontSize: 20
+    },
 }
 
 

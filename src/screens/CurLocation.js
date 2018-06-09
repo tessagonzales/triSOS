@@ -4,8 +4,8 @@ import MapView from 'react-native-maps';
 import { Location, Permissions } from 'expo'
 
 const deltas = {
-    latitudeDelta: 9,
-    longitudeDelta: 9
+    latitudeDelta: 0.0922,
+    longitudeDelta: 0.0421
 };
 
 class CurLocation extends Component {
@@ -43,22 +43,21 @@ class CurLocation extends Component {
 
 
     render() {
-        console.log(this.state);
         const { map, container } = styles;
         let {latitude, longitude} = this.state.region ;
         latitude = latitude !== null ? latitude : 112.0740;
         longitude = longitude !== null ? longitude : 33.4484 
 
         return (
-                <MapView style={map} initialRegion={{
-                    latitude: latitude,
-                    longitude: longitude,
-                    latitudeDelta: .10,
-                    longitudeDelta: .10,
-                    
-            }} showsUserLocation={true}>
-
-                </MapView>
+                <MapView style={map} 
+                    initialRegion={{
+                        latitude: latitude,
+                        longitude: longitude,
+                        latitudeDelta: 0.0922,
+                        longitudeDelta: 0.0421,                    
+                    }} 
+                    showsUserLocation={true}
+                > </MapView>
         );
     }
 }

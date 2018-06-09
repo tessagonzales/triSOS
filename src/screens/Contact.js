@@ -58,7 +58,7 @@ class Contact extends Component {
                         size={35}
                         iconStyle={{ marginRight: 30 }}
                     />
-                    {contact.name} 
+                    {contact.name.toUpperCase()} 
                     
                     <Icon
                         name="arrow-forward"
@@ -127,7 +127,7 @@ class Contact extends Component {
 
 const styles = {
     listStyle: {
-        fontSize:14,
+        fontSize:16,
         marginLeft: 25,
         marginBottom: 10,
         color: '#56D5FA',
